@@ -24,7 +24,9 @@ jobs:
     - name: Run Playwright tests
       run: |
         cd ..
-        npx playwright test
+        pwd
+        ls
+        npx playwright test tests/
     - uses: actions/upload-artifact@v3
       if: always()
       with:
