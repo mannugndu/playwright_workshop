@@ -14,7 +14,7 @@ test("Should be able to test checkboxes 1 ", async ({ page }) => {
 
 test("Should be able to test checkboxes 2 ", async ({ page }) => {
     await page.goto('http://localhost:8080');
-    await page.getByLabel('invalid locator').check();
+    //await page.getByLabel('invalid locator').check(); // uncomment this so that it fails
 })
 
 test("Should be able to test checkboxes 3 ", async ({ page }) => {

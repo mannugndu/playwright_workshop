@@ -9,7 +9,7 @@ test('should test getBy methods', async ({ page }) => {
     await page.getByPlaceholder('type your email').fill("example@abc.com")
     await expect(page.getByRole('heading', { name: 'Sign up' })).toBeVisible();
     await page.getByRole('checkbox', { name: 'Subscribe' }).check();
-    await page.getByRole('button', { name: /submit/i }).click();
+    await page.getByRole('button', { name: /Submit/i }).click();
     await page.getByTestId('click-me').click();
     await page.getByText('click me!').click();
     await page.getByText('Click Me!', {exact: true}).click();
