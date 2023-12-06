@@ -39,6 +39,6 @@ test("Browser, context and page",async ()=>{
     // Returns the array of open pages in the context
     //console.log("Open pages => ",context.pages())
     
-    await waitFor(1)
+    //await waitFor(1)
     await browser.close();
 })

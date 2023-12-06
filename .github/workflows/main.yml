@@ -22,10 +22,8 @@ jobs:
         cd example_app
         npx http-server &
     - name: Run Playwright tests
-      run: |
-        pwd
-        ls
-        npx playwright test tests/
+      run: |        
+        npx playwright test tests/ --trace on
     - uses: actions/upload-artifact@v3
       if: always()
       with:
