@@ -37,7 +37,7 @@ jobs:
             cd ..
             pwd
             ls
-            npx playwright install chromium
+            npx playwright install-deps
             npx playwright test tests/ --trace on
 
       # # Install dependencies
