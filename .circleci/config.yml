@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  testing:
     docker:
       - image: cimg/base:stable
 
@@ -18,18 +18,15 @@ jobs:
 
       # Source NVM and install Node.js
       - run:
-          name: Install Node.js
+          name: Install Node and spinup example app
           command: |
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
             [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
             nvm install 18
             nvm use 18
-            node --version
-            npm --version
             npm install
             cd example_app
-            pwd
             npx http-server &
             sleep 20
             cd ..
@@ -37,28 +34,17 @@ jobs:
             npx playwright install-deps
             npx playwright test tests/ --trace on
 
-      # # Install dependencies
-      # - run:
-      #     name: Install Dependencies
-      #     command: npm install
-
-      # # Spin up local app (customize this step based on your app setup)
-      # - run:
-      #     name: Start Local App
-      #     command: |
-      #       cd example_app
-      #       npm start &
-
-      # # Run Playwright tests
-      # - run:
-      #     name: Run Playwright Tests
-      #     command: |
-      #       pwd
-      #       ls
-      #       node --version
-      #       npm --version
-      #       npx playwright install chromium
-      #       npx playwright test tests/ --trace on
+       - run:
+          name: Run Playwright tests
+          command: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+            cd ..
+            nvm use 18
+            npx playwright install
+            npx playwright install-deps
+            npx playwright test tests/ --trace on
 
       # Export test reports
       - run:
@@ -82,4 +68,4 @@ workflows:
   version: 2
   build:
     jobs:
-      - build
+      - testing
