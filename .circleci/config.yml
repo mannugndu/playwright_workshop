@@ -29,10 +29,6 @@ jobs:
             cd example_app
             npx http-server &
             sleep 20
-            cd ..
-            npx playwright install
-            npx playwright install-deps
-            npx playwright test tests/ --trace on
 
       - run:
           name: Run Playwright tests
