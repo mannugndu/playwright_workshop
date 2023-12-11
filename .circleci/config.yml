@@ -33,7 +33,7 @@ jobs:
             pwd
             ls
             cd example_app
-            npm start &
+            nvm http-server &
             cd ..
             pwd
             ls
