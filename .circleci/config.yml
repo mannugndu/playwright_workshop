@@ -28,10 +28,10 @@ jobs:
             node --version
             npm --version
             npm install
-            pwd
-            ls
             cd example_app
+            pwd
             nvm http-server &
+            sleep 20
 
 
       # # Install dependencies
