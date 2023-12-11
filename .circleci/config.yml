@@ -18,7 +18,7 @@ jobs:
 
       # Source NVM and install Node.js
       - run:
-          name: Install Node and spinup example app
+          name: Install Node and PW deps
           command: |
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -26,32 +26,20 @@ jobs:
             nvm install 18
             nvm use 18
             npm install
-            cd example_app
-            npx http-server &
-            sleep 20
-          background: true
+            npx playwright install
+            npx playwright install-deps
 
       - run:
-          name: Install PW deps
+          name: Spin up example-app and Execute PW tests
           command: |
-            wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 10 http://localhost:8080/
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
             [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
             nvm install 18
             nvm use 18
-            nvm use 18
-            npx playwright install
-            npx playwright install-deps
-
-
-      - run:
-          name: Execute tests
-          command: |
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-            nvm use 18
+            cd example_app
+            npx http-server
+            cd ..
             npx playwright test tests/ --trace on
 
       # Export test reports
