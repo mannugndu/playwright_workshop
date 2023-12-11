@@ -26,8 +26,7 @@ jobs:
       - run:
           name: Run Playwright Tests
           command: |
-            pwd
-            ls
+            npx playwright install --with-deps
             npx playwright test tests/ --trace on
 
       # Export test reports
