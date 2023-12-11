@@ -34,7 +34,7 @@ jobs:
             npx playwright install-deps
             npx playwright test tests/ --trace on
 
-       - run:
+      - run:
           name: Run Playwright tests
           command: |
             export NVM_DIR="$HOME/.nvm"
