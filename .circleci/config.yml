@@ -36,6 +36,8 @@ jobs:
           command: |
             pwd
             ls
+            node --version
+            npm --version
             npx playwright install chromium
             npx playwright test tests/ --trace on
 
