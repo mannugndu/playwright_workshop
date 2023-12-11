@@ -1,0 +1,85 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/base:stable
+
+    working_directory: ~/playwright_workshop
+
+    steps:
+      - checkout
+
+      # Install NVM
+      - run:
+          name: Install NVM
+          command: |
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+      # Source NVM and install Node.js
+      - run:
+          name: Install Node.js
+          command: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+            nvm install 18
+            nvm use 18
+            node --version
+            npm --version
+            npm install
+            cd example_app
+            pwd
+            npx http-server &
+            sleep 20
+            cd ..
+            npx playwright install
+            npx playwright install-deps
+            npx playwright test tests/ --trace on
+
+      # # Install dependencies
+      # - run:
+      #     name: Install Dependencies
+      #     command: npm install
+
+      # # Spin up local app (customize this step based on your app setup)
+      # - run:
+      #     name: Start Local App
+      #     command: |
+      #       cd example_app
+      #       npm start &
+
+      # # Run Playwright tests
+      # - run:
+      #     name: Run Playwright Tests
+      #     command: |
+      #       pwd
+      #       ls
+      #       node --version
+      #       npm --version
+      #       npx playwright install chromium
+      #       npx playwright test tests/ --trace on
+
+      # Export test reports
+      - run:
+          name: Export Test Reports
+          command: |
+            mkdir -p ~/artifacts
+            cp -r playwright-report ~/artifacts/
+            cp -r test-results ~/artifacts/
+
+      # Save test artifacts
+      - persist_to_workspace:
+          root: ~/artifacts
+          paths:
+            - .
+
+      - store_artifacts:
+          path: playwright-report
+          destination: test-reports
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
