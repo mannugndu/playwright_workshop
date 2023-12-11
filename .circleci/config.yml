@@ -19,7 +19,7 @@ jobs:
       - run:
           name: Start Local App
           command: |
-            cd example-app
+            cd example_app
             npm start &
 
       # Run Playwright tests
