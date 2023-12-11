@@ -27,29 +27,34 @@ jobs:
             nvm use 18
             node --version
             npm --version
-
-      # Install dependencies
-      - run:
-          name: Install Dependencies
-          command: npm install
-
-      # Spin up local app (customize this step based on your app setup)
-      - run:
-          name: Start Local App
-          command: |
+            npm install
             cd example_app
             npm start &
-
-      # Run Playwright tests
-      - run:
-          name: Run Playwright Tests
-          command: |
-            pwd
-            ls
-            node --version
-            npm --version
             npx playwright install chromium
             npx playwright test tests/ --trace on
+
+      # # Install dependencies
+      # - run:
+      #     name: Install Dependencies
+      #     command: npm install
+
+      # # Spin up local app (customize this step based on your app setup)
+      # - run:
+      #     name: Start Local App
+      #     command: |
+      #       cd example_app
+      #       npm start &
+
+      # # Run Playwright tests
+      # - run:
+      #     name: Run Playwright Tests
+      #     command: |
+      #       pwd
+      #       ls
+      #       node --version
+      #       npm --version
+      #       npx playwright install chromium
+      #       npx playwright test tests/ --trace on
 
       # Export test reports
       - run:
