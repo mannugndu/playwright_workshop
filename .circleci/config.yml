@@ -38,7 +38,7 @@ jobs:
             nvm install 18
             nvm use 18
             cd example_app
-            npx http-server
+            npx http-server &
             cd ..
             npx playwright test tests/ --trace on
 
