@@ -41,7 +41,7 @@ jobs:
             nvm use 18
             npx playwright install
             npx playwright install-deps
-            npx playwright test tests/ --trace on
+          background: true
 
       - run:
           name: Execute tests
