@@ -27,9 +27,16 @@ jobs:
             nvm use 18
             node --version
             npm --version
+            pwd
+            ls
             npm install
+            pwd
+            ls
             cd example_app
             npm start &
+            cd ..
+            pwd
+            ls
             npx playwright install chromium
             npx playwright test tests/ --trace on
 
